@@ -5,10 +5,11 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"time"
+
 	"personal/go-proxy-service/app/repository"
 	"personal/go-proxy-service/pkg/models"
 	"personal/go-proxy-service/pkg/utilities"
-	"time"
 )
 
 type TaskService struct {
@@ -118,7 +119,7 @@ func (svc *TaskService) DoRequest(task *models.Task) {
 	switch resp.StatusCode / 100 {
 	case 2:
 		task.Status = utilities.NewJsonNullString(models.StatusDone)
-	case 4,5:
+	case 4, 5:
 		task.Status = utilities.NewJsonNullString(models.StatusError)
 	}
 

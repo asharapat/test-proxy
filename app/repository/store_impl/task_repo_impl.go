@@ -2,6 +2,7 @@ package store_impl
 
 import (
 	"database/sql"
+
 	"personal/go-proxy-service/pkg/models"
 	"personal/go-proxy-service/pkg/utilities"
 )
@@ -50,7 +51,7 @@ func (tr *TaskRepository) CreateTask(task *models.Task) (*models.Task, error) {
 
 }
 
-func (tr *TaskRepository) UpdateTask(task *models.Task, typeBody string)  error {
+func (tr *TaskRepository) UpdateTask(task *models.Task, typeBody string) error {
 
 	tx, err := tr.store.BeginTx()
 	if err != nil {
@@ -88,4 +89,3 @@ func (tr *TaskRepository) GetTask(id int64) (*models.Task, error) {
 
 	return task, nil
 }
-

@@ -2,17 +2,18 @@ package store_impl
 
 import (
 	"database/sql"
+
 	"personal/go-proxy-service/app/repository"
 )
 
 type Store struct {
-	db *sql.DB
+	db             *sql.DB
 	taskRepository *TaskRepository
 }
 
 func New(db *sql.DB) *Store {
 	return &Store{
-		db:             db,
+		db: db,
 	}
 }
 

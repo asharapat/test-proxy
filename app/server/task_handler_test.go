@@ -5,18 +5,20 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/gorilla/mux"
 	"net/http"
 	"net/http/httptest"
+	"testing"
+
+	"github.com/gorilla/mux"
+
 	"personal/go-proxy-service/app/services"
 	"personal/go-proxy-service/pkg/models"
 	"personal/go-proxy-service/pkg/utilities"
-	"testing"
 )
 
 type taskServiceTest struct {
-	ans     *models.Task
-	err     error
+	ans *models.Task
+	err error
 }
 
 func (t taskServiceTest) CreateTask(task *models.Task) (*models.Task, error) {
@@ -119,15 +121,15 @@ func TestServer_MakeGetTaskRequest(t *testing.T) {
 		{
 			Router: r,
 			TaskService: taskServiceTest{
-				ans:     nil,
-				err:     errors.New("some internal error"),
+				ans: nil,
+				err: errors.New("some internal error"),
 			},
 		},
 		{
 			Router: r,
 			TaskService: taskServiceTest{
-				ans:     &models.Task{},
-				err:     nil,
+				ans: &models.Task{},
+				err: nil,
 			},
 		},
 	}
@@ -136,7 +138,7 @@ func TestServer_MakeGetTaskRequest(t *testing.T) {
 		urlStr := "/api/task/get/"
 		ts.Router.HandleFunc(urlStr+"{id:[0-9]+}", ts.MakeGetTaskRequest())
 
-		resp,  err := MakeRequest(ts, urlStr+"1", nil)
+		resp, err := MakeRequest(ts, urlStr+"1", nil)
 
 		if err != nil {
 			t.Error(err)

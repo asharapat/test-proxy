@@ -2,13 +2,15 @@ package store_impl
 
 import (
 	"database/sql"
-	"github.com/DATA-DOG/go-sqlmock"
-	"github.com/stretchr/testify/assert"
 	"log"
-	"personal/go-proxy-service/pkg/models"
-	"personal/go-proxy-service/pkg/utilities"
 	"testing"
 	"time"
+
+	"github.com/DATA-DOG/go-sqlmock"
+	"github.com/stretchr/testify/assert"
+
+	"personal/go-proxy-service/pkg/models"
+	"personal/go-proxy-service/pkg/utilities"
 )
 
 func TestTaskRepository_CreateTask(t *testing.T) {
@@ -49,10 +51,10 @@ func TestTaskRepository_UpdateTask(t *testing.T) {
 	st := New(db)
 
 	task := &models.Task{
-		Id:              utilities.NewJsonNullInt64(1),
-		UpdatedOn:       utilities.NewJsonNullTime(time.Now()),
-		Url:             utilities.NewJsonNullString("url"),
-		RequestHeaders:  &models.Header{
+		Id:        utilities.NewJsonNullInt64(1),
+		UpdatedOn: utilities.NewJsonNullTime(time.Now()),
+		Url:       utilities.NewJsonNullString("url"),
+		RequestHeaders: &models.Header{
 			Authorization: utilities.NewJsonNullString("auth"),
 			ContentType:   utilities.NewJsonNullString("content"),
 		},

@@ -2,10 +2,12 @@ package server
 
 import (
 	"encoding/json"
-	"github.com/gorilla/mux"
 	"net/http"
-	"personal/go-proxy-service/pkg/models"
 	"strconv"
+
+	"github.com/gorilla/mux"
+
+	"personal/go-proxy-service/pkg/models"
 )
 
 func (srv *Server) MakeCreateTaskRequest() http.HandlerFunc {

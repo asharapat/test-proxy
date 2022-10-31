@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+
 	"personal/go-proxy-service/app/repository/store_impl"
 	"personal/go-proxy-service/app/server"
 	"personal/go-proxy-service/app/services"
@@ -13,7 +14,7 @@ import (
 	_ "github.com/lib/pq"
 )
 
-func main(){
+func main() {
 	dbConnection, err := OpenDBConnection(
 		os.Getenv("db_host"),
 		os.Getenv("db_port"),
