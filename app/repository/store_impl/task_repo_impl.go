@@ -1,6 +1,7 @@
 package store_impl
 
 import (
+	"database/sql"
 	"personal/go-proxy-service/pkg/models"
 	"personal/go-proxy-service/pkg/utilities"
 )
@@ -57,14 +58,15 @@ func (tr *TaskRepository) UpdateTask(task *models.Task, typeBody string)  error 
 	}
 
 	id := utilities.NewJsonNullInt64(0)
+	var row *sql.Row
 	if typeBody == models.Request {
-		err = tx.QueryRow(queryUpdateTaskRequest, task.UpdatedOn, task.Status, task.Id).Scan(&id)
+		row = tx.QueryRow(queryUpdateTaskRequest, task.UpdatedOn, task.Status, task.Id)
 	} else if typeBody == models.Response {
-		err = tx.QueryRow(queryUpdateTaskResponse, task.UpdatedOn, task.Status, task.HttpStatusCode,
-			task.ResponseHeaders, task.Length, task.Id).Scan(&id)
+		row = tx.QueryRow(queryUpdateTaskResponse, task.UpdatedOn, task.Status, task.HttpStatusCode,
+			task.ResponseHeaders, task.Length, task.Id)
 	}
 
-	if err != nil {
+	if err = row.Scan(&id); err != nil {
 		tx.Rollback()
 		return err
 	}

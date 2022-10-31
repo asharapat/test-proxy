@@ -2,7 +2,6 @@ package server
 
 import (
 	"encoding/json"
-	"errors"
 	"github.com/gorilla/mux"
 	"net/http"
 	"personal/go-proxy-service/pkg/models"
@@ -16,7 +15,6 @@ func (srv *Server) MakeCreateTaskRequest() http.HandlerFunc {
 			srv.error(w, http.StatusBadRequest, err)
 			return
 		}
-		//validate method and url
 		res, err := srv.TaskService.CreateTask(task)
 		if err != nil {
 			srv.error(w, http.StatusInternalServerError, err)
@@ -31,15 +29,7 @@ func (srv *Server) MakeGetTaskRequest() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		idStr := vars["id"]
-		if idStr == "" {
-			srv.error(w, http.StatusBadRequest, errors.New("missing param id"))
-			return
-		}
-		id, err := strconv.ParseInt(idStr, 10, 64)
-		if err != nil {
-			srv.error(w, http.StatusBadRequest, errors.New("invalid param mailing id"))
-			return
-		}
+		id, _ := strconv.ParseInt(idStr, 10, 64)
 		res, err := srv.TaskService.GetTask(id)
 		if err != nil {
 			srv.error(w, http.StatusInternalServerError, err)

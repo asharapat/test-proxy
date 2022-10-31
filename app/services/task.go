@@ -31,7 +31,7 @@ func (svc *TaskService) CreateTask(task *models.Task) (*models.Task, error) {
 	taskRes.Id = task.Id
 
 	// start sending request in background
-	svc.DoRequest(task)
+	go svc.DoRequest(task)
 
 	return taskRes, nil
 }
